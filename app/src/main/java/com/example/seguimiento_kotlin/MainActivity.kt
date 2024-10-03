@@ -1,47 +1,41 @@
 package com.example.seguimiento_kotlin
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.seguimiento_kotlin.ui.theme.Seguimiento_kotlinTheme
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            Seguimiento_kotlinTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+        setContentView(R.layout.activity_main)
+
+        // Vinculamos los elementos de la UI con el código
+        val usernameInput = findViewById<EditText>(R.id.username)
+        val passwordInput = findViewById<EditText>(R.id.password)
+        val loginButton = findViewById<Button>(R.id.login_button)
+        val forgotPassword = findViewById<TextView>(R.id.forgot_password)
+
+        // Evento click para el botón de login
+        loginButton.setOnClickListener {
+            val username = usernameInput.text.toString().trim()
+            val password = passwordInput.text.toString().trim()
+
+            if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Por favor, completa ambos campos", Toast.LENGTH_SHORT).show()
+            } else {
+                // Lógica para manejar el inicio de sesión
+                Toast.makeText(this, "Iniciando sesión...", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Seguimiento_kotlinTheme {
-        Greeting("Android")
+        // Evento click para '¿Olvidaste tu contraseña?'
+        forgotPassword.setOnClickListener {
+            Toast.makeText(this, "Recuperar contraseña", Toast.LENGTH_SHORT).show()
+            // Lógica para recuperar contraseña
+        }
     }
 }
